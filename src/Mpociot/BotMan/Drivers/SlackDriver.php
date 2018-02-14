@@ -228,8 +228,12 @@ class SlackDriver extends Driver
         }
 
         $parameters['token'] = $this->config->get('slack_token');
+        $url = 'https://slack.com/api/chat.postMessage';
+        if (isset($parameters['ts'])) {
+            $url = 'https://slack.com/api/chat.update';
+        }
 
-        return $this->http->post('https://slack.com/api/chat.postMessage', [], $parameters);
+        return $this->http->post($url, [], $parameters);
     }
 
     /**
